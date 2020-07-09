@@ -1,10 +1,10 @@
 <template>
   <div>
-    首页
-    <router-link to="/air">机票模块首页</router-link>
-    <router-link to="/hotel">酒店模块首页</router-link>
-    <router-link to="/post">旅游攻略模块</router-link>
-    <router-link to="/user/login">登录/注册</router-link>
+    <!-- 首页 -->
+    <!-- <router-link to="/air">国内机票</router-link>
+    <router-link to="/hotel">酒店</router-link>
+    <router-link to="/post">旅游攻略</router-link>
+    <router-link to="/user/login">登录/注册</router-link>-->
   </div>
 </template>
 
