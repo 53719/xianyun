@@ -4,14 +4,18 @@
     <Header />
     <!-- 内容占位组件 -->
     <nuxt />
+    <!-- 页脚组件 -->
+    <Footer />
   </div>
 </template>
 
 <script>
 import Header from "@/components/header";
+import Footer from "@/components/footer";
 export default {
   components: {
-    Header
+    Header,
+    Footer
   }
 };
 </script>
