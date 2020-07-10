@@ -3,10 +3,11 @@
     <!-- 幻灯片 -->
     <el-carousel :interval="5000" arrow="always">
       <el-carousel-item v-for="(item, index) in banners" :key="index">
+        <!-- 替换`template`的图片地址添加`$axios.defaults.baseURL`，因为接口返回的图片链接是相对链接 -->
         <div
           class="banner-image"
           :style="`
-                background:url(${item.url}) center center no-repeat;
+                background:url(${$axios.defaults.baseURL}${item.url}) center center no-repeat;
                 background-size:contain contain;
                 `"
         ></div>
@@ -20,15 +21,16 @@ export default {
   data() {
     return {
       // 轮播图数据
-      banners: [
-        {
-          url: "http://157.122.54.189:9095/assets/images/th03.jfif"
-        },
-        {
-          url: "http://157.122.54.189:9095/assets/images/th04.jfif"
-        }
-      ]
+      banners: []
     };
+  },
+  mounted() {
+    this.$axios({
+      url: "/scenics/banners"
+    }).then(res => {
+      const { data } = res.data;
+      this.banners = data;
+    });
   }
 };
 </script>
