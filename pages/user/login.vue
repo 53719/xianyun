@@ -1,5 +1,5 @@
 <template>
-  <div>用户登录注册页面</div>
+  <div>登录注册页面</div>
 </template>
 
 <script>
