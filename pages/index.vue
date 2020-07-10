@@ -1,31 +1,51 @@
 <template>
-  <div>
+  <div class="container">
+    <!-- 幻灯片 -->
     <el-carousel :interval="5000" arrow="always">
-      <el-carousel-item v-for="item in 4" :key="item">
-        <h3>{{ item }}</h3>
+      <el-carousel-item v-for="(item, index) in banners" :key="index">
+        <div
+          class="banner-image"
+          :style="`
+                background:url(${item.url}) center center no-repeat;
+                background-size:contain contain;
+                `"
+        ></div>
       </el-carousel-item>
     </el-carousel>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      // 轮播图数据
+      banners: [
+        {
+          url: "http://157.122.54.189:9095/assets/images/th03.jfif"
+        },
+        {
+          url: "http://157.122.54.189:9095/assets/images/th04.jfif"
+        }
+      ]
+    };
+  }
+};
 </script>
 
-<style lang="less" scoped>
-.el-carousel__item h3 {
-  color: #475669;
-  font-size: 18px;
-  opacity: 0.75;
-  line-height: 300px;
-  margin: 0;
-}
+<style scoped lang="less">
+.container {
+  min-width: 1000px;
+  margin: 0 auto;
+  position: relative;
 
-.el-carousel__item:nth-child(2n) {
-  background-color: #99a9bf;
-}
+  /deep/ .el-carousel__container {
+    height: 700px;
+  }
 
-.el-carousel__item:nth-child(2n + 1) {
-  background-color: #d3dce6;
+  .banner-image {
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>
