@@ -52,6 +52,9 @@ export default {
 };
 </script>
 <style scoped lang="less">
+/deep/a {
+  text-decoration: none;
+}
 .header {
   height: 60px;
   line-height: 60px;
@@ -94,6 +97,10 @@ export default {
     }
 
     .nuxt-link-exact-active {
+      background: #409eff;
+      color: #fff !important;
+    }
+    /deep/ .nuxt-link-active:not(:first-child) {
       background: #409eff;
       color: #fff !important;
     }
