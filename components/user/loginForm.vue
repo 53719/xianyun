@@ -2,7 +2,7 @@
   <el-form :model="form" ref="form" :rules="rules" class="form">
     <!-- 新增了prop属性 -->
     <el-form-item class="form-item" prop="username">
-      <el-input placeholder="用户名/手机" v-model="form.username"></el-input>
+      <el-input placeholder="用户名/手机" v-model="form.username" @focus="hideErrMsg('username')"></el-input>
     </el-form-item>
 
     <!-- 新增了prop属性 -->
@@ -37,12 +37,32 @@ export default {
               required: true,
               message: "请输入用户名",
               trigger: "blur"
+            },
+            {
+              min: 6,
+              max: 15,
+              message: "用户名在 6 到 15 个字符之间",
+              trigger: "blur"
+            },
+            // 还可以使用正则表达式
+            {
+              pattern: /^\d+$/,
+              message: "用户名只能输入数字",
+              trigger: "blur"
             }
           ],
           password: [
             {
               required: true,
               message: "请输入密码",
+              trigger: "blur"
+            },
+            // 效验属性本身是一个数组
+            // 数组里面有规则对象
+            // 规则对象可以不止有一个
+            {
+              pattern: /^\d{5,8}$/,
+              message: "密码是五到八位的数字组成",
               trigger: "blur"
             }
           ]
@@ -69,6 +89,10 @@ export default {
           });
         }
       });
+    },
+    //清理表单方法
+    hideErrMsg(propName) {
+      this.$refs.form.clearValidate(propName);
     }
   }
 };
