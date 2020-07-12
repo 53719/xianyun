@@ -51,9 +51,24 @@ export default {
     };
   },
   methods: {
+    //   测试账号
+    //   账号：13800138000
+    //   密码：123456
     // 提交登录
     handleLoginSubmit() {
-      console.log(this.form);
+      //   验证表单
+      this.$refs["form"].validate(valid => {
+        //为true表示没有错误
+        if (valid) {
+          this.$axios({
+            url: "/accounts/login",
+            method: "POST",
+            data: this.form
+          }).then(res => {
+            console.log(res.data);
+          });
+        }
+      });
     }
   }
 };
