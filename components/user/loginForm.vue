@@ -2,7 +2,7 @@
   <el-form :model="form" ref="form" :rules="rules" class="form">
     <!-- 新增了prop属性 -->
     <el-form-item class="form-item" prop="username">
-      <el-input placeholder="用户名/手机" v-model="form.username" @focus="hideErrMsg('username')"></el-input>
+      <el-input placeholder="用户名/手机" v-model="form.username" @focus="clearMsg('username')"></el-input>
     </el-form-item>
 
     <!-- 新增了prop属性 -->
@@ -76,22 +76,18 @@ export default {
     //   密码：123456
     // 提交登录
     handleLoginSubmit() {
-      //   验证表单
-      this.$refs["form"].validate(valid => {
-        //为true表示没有错误
-        if (valid) {
-          this.$axios({
-            url: "/accounts/login",
-            method: "POST",
-            data: this.form
-          }).then(res => {
-            console.log(res.data);
-          });
-        }
+      console.log(this.form);
+      this.$axios({
+        url: "/accounts/login",
+        method: "POST",
+        data: this.form
+      }).then(res => {
+        console.log(res.data);
       });
     },
-    //清理表单方法
-    hideErrMsg(propName) {
+    clearMsg(propName) {
+      // 如果拿到一个数据的 prop 名字
+      // 就可以直接调用表单,来清理对应数据的错误信息
       this.$refs.form.clearValidate(propName);
     }
   }
