@@ -1,11 +1,13 @@
 <template>
   <el-form :model="form" ref="form" :rules="rules" class="form">
-    <el-form-item class="form-item">
-      <el-input placeholder="用户名/手机"></el-input>
+    <!-- 新增了prop属性 -->
+    <el-form-item class="form-item" prop="username">
+      <el-input placeholder="用户名/手机" v-model="form.username"></el-input>
     </el-form-item>
 
-    <el-form-item class="form-item">
-      <el-input placeholder="密码" type="password"></el-input>
+    <!-- 新增了prop属性 -->
+    <el-form-item class="form-item" prop="password">
+      <el-input placeholder="密码" type="password" v-model="form.password"></el-input>
     </el-form-item>
 
     <p class="form-text">
@@ -21,9 +23,31 @@ export default {
   data() {
     return {
       // 表单数据
-      form: {},
+      form: {
+        // 登录用户名/手机
+        username: "",
+        // 登录密码
+        password: ""
+      },
       // 表单规则
-      rules: {}
+      rules: {
+        rules: {
+          username: [
+            {
+              required: true,
+              message: "请输入用户名",
+              trigger: "blur"
+            }
+          ],
+          password: [
+            {
+              required: true,
+              message: "请输入密码",
+              trigger: "blur"
+            }
+          ]
+        }
+      }
     };
   },
   methods: {
