@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { mutations } from "../../store/user";
 export default {
   data() {
     return {
@@ -71,46 +72,21 @@ export default {
   methods: {
     // 提交登录
     handleLoginSubmit() {
-      // 默认登录的用户名和密码是
-      // 13800138000 : 123456
       console.log(this.form);
-
-      // 我们需要在发送之前进行一次总的校验复核一遍
-      // 拿到表单对象, 直接调用他的方法, 传入回调
       this.$refs.form.validate((isValid, objNotValid) => {
         // 第一个参数代表是否验证成功, 只有成功的状态, 才发出请求
         if (isValid) {
-          this.$axios({
-            url: "/accounts/login",
-            method: "POST",
-            data: this.form
-          }).then(res => {
-            console.log(res.data);
-            if (res.data.token) {
-              this.$store.commit("user/setUserInfo", res.data);
-            }
-          });
+          // 既然已经封装好了 vuex 的登录
+          // 在这里只需要调用即可
+          // 调用 mutations 是 commit
+          // 调用 actions 是 dispatch
+          console.log("开始登录");
+          this.$store.dispatch("user/login", this.form);
         } else {
           // 如果失败, 尝试将 objNotValid 告诉你那个字段失败的信息打印出来
           console.log(objNotValid);
         }
       });
-
-      // 也可以用 promise 形式实现, 这是饿了么已经封装好的
-      // this.$refs.form.validate().then((isValid)=>{
-      //     // 第一个参数代表是否验证成功, 只有成功的状态, 才发出请求
-      //     if (isValid) {
-      //         this.$axios({
-      //             url: "/accounts/login",
-      //             method: "POST",
-      //             data: this.form
-      //         }).then(res => {
-      //             console.log(res.data);
-      //         })
-      //     }
-      // }).catch(err=>{
-      //     console.log(err);
-      // })
     },
     clearMsg(propName) {
       // 如果拿到一个数据的 prop 名字
