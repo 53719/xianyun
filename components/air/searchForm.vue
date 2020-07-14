@@ -98,7 +98,10 @@ export default {
             code: city.sort
           };
         });
-        return suggestions;
+        // 过滤掉所有不带有 code 的城市
+        return suggestions.filter(city => {
+          return city.code;
+        });
       });
     },
 
