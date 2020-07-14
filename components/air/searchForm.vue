@@ -19,6 +19,7 @@
         <!-- select 点击选中建议项时触发 -->
         <el-autocomplete
           :fetch-suggestions="queryDepartSearch"
+          v-model="form.departCity"
           placeholder="请搜索出发城市"
           @select="handleDepartSelect"
           class="el-autocomplete"
@@ -27,6 +28,7 @@
       <el-form-item label="到达城市">
         <el-autocomplete
           :fetch-suggestions="queryDestSearch"
+          v-model="form.destCity"
           placeholder="请搜索到达城市"
           @select="handleDestSelect"
           class="el-autocomplete"
@@ -34,7 +36,13 @@
       </el-form-item>
       <el-form-item label="出发时间">
         <!-- change 用户确认选择日期时触发 -->
-        <el-date-picker type="date" placeholder="请选择日期" style="width: 100%;" @change="handleDate"></el-date-picker>
+        <el-date-picker
+          type="date"
+          v-model="form.departDate"
+          placeholder="请选择日期"
+          style="width: 100%;"
+          @change="handleDate"
+        ></el-date-picker>
       </el-form-item>
       <el-form-item label>
         <el-button style="width:100%;" type="primary" icon="el-icon-search" @click="handleSubmit">搜索</el-button>
@@ -54,7 +62,14 @@ export default {
         { icon: "iconfont icondancheng", name: "单程" },
         { icon: "iconfont iconshuangxiang", name: "往返" }
       ],
-      currentTab: 0
+      currentTab: 0,
+      form: {
+        departCity: "",
+        departCode: "",
+        destCity: "",
+        destCode: "",
+        departDate: ""
+      }
     };
   },
   methods: {
@@ -64,13 +79,13 @@ export default {
     // 出发城市输入框获得焦点时触发
     // value 是选中的值，cb是回调函数，接收要展示的列表
     queryDepartSearch(value, cb) {
-      cb([{ value: 1 }, { value: 2 }, { value: 3 }]);
+      cb([{ value: "广州" }, { value: "北京" }, { value: "上海" }]);
     },
 
     // 目标城市输入框获得焦点时触发
     // value 是选中的值，cb是回调函数，接收要展示的列表
     queryDestSearch(value, cb) {
-      cb([{ value: 1 }, { value: 2 }, { value: 3 }]);
+      cb([{ value: "杭州" }, { value: "深圳" }, { value: "海南" }]);
     },
 
     // 出发城市下拉选择时触发
@@ -86,7 +101,9 @@ export default {
     handleReverse() {},
 
     // 提交表单是触发
-    handleSubmit() {}
+    handleSubmit() {
+      console.log(this.form);
+    }
   },
   mounted() {}
 };
