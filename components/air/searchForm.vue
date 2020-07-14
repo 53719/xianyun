@@ -20,6 +20,8 @@
         <el-autocomplete
           v-model="form.departCity"
           :fetch-suggestions="queryDepartSearch"
+          :trigger-on-focus="false"
+          :highlight-first-item="true"
           placeholder="请搜索出发城市"
           @select="handleDepartSelect"
           class="el-autocomplete"
@@ -29,6 +31,8 @@
         <el-autocomplete
           v-model="form.destCity"
           :fetch-suggestions="queryDestSearch"
+          :trigger-on-focus="false"
+          :highlight-first-item="true"
           placeholder="请搜索到达城市"
           @select="handleDestSelect"
           class="el-autocomplete"
