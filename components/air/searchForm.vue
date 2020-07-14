@@ -18,8 +18,8 @@
         <!-- fetch-suggestions 返回输入建议的方法 -->
         <!-- select 点击选中建议项时触发 -->
         <el-autocomplete
-          :fetch-suggestions="queryDepartSearch"
           v-model="form.departCity"
+          :fetch-suggestions="queryDepartSearch"
           placeholder="请搜索出发城市"
           @select="handleDepartSelect"
           class="el-autocomplete"
@@ -27,8 +27,8 @@
       </el-form-item>
       <el-form-item label="到达城市">
         <el-autocomplete
-          :fetch-suggestions="queryDestSearch"
           v-model="form.destCity"
+          :fetch-suggestions="queryDestSearch"
           placeholder="请搜索到达城市"
           @select="handleDestSelect"
           class="el-autocomplete"
@@ -78,7 +78,7 @@ export default {
 
     // 出发城市输入框获得焦点时触发
     // value 是选中的值，cb是回调函数，接收要展示的列表
-    queryDepartSearch(value, cb) {
+    queryDepartSearch(value, showList) {
       // 每次获取建议的时候,其实都需要真的发送请求获取城市列表
       this.$axios({
         url: "/airs/city",
@@ -91,17 +91,18 @@ export default {
         // 但是里面没有 value 值 而是 name 属性
         const suggestions = res.data.data.map(city => {
           return {
-            value: city.name
+            value: city.name,
+            code: city.sort
           };
         });
         // 将处理完的数据显示出来
-        cb(suggestions);
+        showList(suggestions);
       });
     },
 
     // 目标城市输入框获得焦点时触发
-    // value 是选中的值，cb是回调函数，接收要展示的列表
-    queryDestSearch(value, cb) {
+    // value 是选中的值，showList是回调函数，接收要展示的列表
+    queryDestSearch(value, showList) {
       this.$axios({
         url: "/airs/city",
         params: {
@@ -113,19 +114,28 @@ export default {
         // 但是里面没有 value 值 而是 name 属性
         const suggestions = res.data.data.map(city => {
           return {
-            value: city.name
+            value: city.name,
+            code: city.sort
           };
         });
         // 将处理完的数据显示出来
-        cb(suggestions);
+        showList(suggestions);
       });
     },
 
     // 出发城市下拉选择时触发
-    handleDepartSelect(item) {},
+    handleDepartSelect(item) {
+      console.log(11111111);
+      // 建议被选择后,会带上一个被选项 item 对象
+      // 将里面的 code 存放到 表单的出发城市代码
+      console.log(item);
+      this.form.departCode = item.code;
+    },
 
     // 目标城市下拉选择时触发
-    handleDestSelect(item) {},
+    handleDestSelect(item) {
+      this.form.destCode = item.code;
+    },
 
     // 确认选择日期时触发
     handleDate(value) {},
