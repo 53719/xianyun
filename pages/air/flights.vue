@@ -7,7 +7,9 @@
         <div>过滤条件</div>
 
         <!-- 航班头部布局 -->
-        <div>航班头部布局</div>
+        <div>
+          <FlightsListHead />
+        </div>
 
         <!-- 航班信息 -->
         <div>航班信息</div>
@@ -23,7 +25,11 @@
 </template>
 
 <script>
+import FlightsListHead from "@/components/air/FlightsListHead";
 export default {
+  components: {
+    FlightsListHead
+  },
   created() {
     // 现在所有的参数都在 URL 直接发送请求
     this.$axios({
