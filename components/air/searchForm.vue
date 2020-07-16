@@ -1,15 +1,5 @@
 <template>
   <div class="search-form">
-    departCity = {{form.departCity}}
-    <br />
-    departCode = {{form.departCode}}
-    <br />
-    destCity = {{form.destCity}}
-    <br />
-    destCode = {{form.destCode}}
-    <br />
-    departDate = {{form.departDate}}
-    <br />
     <!-- 头部tab切换 -->
     <el-row type="flex" class="search-tab">
       <span
@@ -197,17 +187,24 @@ export default {
     // 提交表单是触发
     handleSubmit() {
       console.log(this.form);
-      // 利用编程式导航跳转页面
-      this.$router.push({
-        path: "/air/flights",
-        query: {
-          departCity: this.form.departCity.replace(/市$/, ""),
-          departCode: this.form.departCode,
-          destCity: this.form.destCity.replace(/市$/, ""),
-          destCode: this.form.destCode,
-          departDate: this.form.departDate
-        }
-      });
+      if (this.form.departCity == "" || this.form.destCity == "") {
+        this.$message({
+          message: "出发城市或者到底城市不能为空",
+          type: "warning"
+        });
+      } else {
+        // 利用编程式导航跳转页面
+        this.$router.push({
+          path: "/air/flights",
+          query: {
+            departCity: this.form.departCity.replace(/市$/, ""),
+            departCode: this.form.departCode,
+            destCity: this.form.destCity.replace(/市$/, ""),
+            destCode: this.form.destCode,
+            departDate: this.form.departDate
+          }
+        });
+      }
     }
   },
   mounted() {}
