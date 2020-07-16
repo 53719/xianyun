@@ -205,9 +205,15 @@ export default {
           }
         });
       }
+    },
+    getdatatime() {
+      //默认显示今天
+      this.form.departDate = new Date();
     }
   },
-  mounted() {}
+  mounted() {
+    this.getdatatime();
+  }
 };
 </script>
 
