@@ -79,7 +79,15 @@ export default {
   },
   methods: {
     // tab切换时触发
-    handleSearchTab(item, index) {},
+    handleSearchTab(item, index) {
+      if (index === 1) {
+        this.$confirm("目前暂不支持往返，请使用单程选票！", "提示", {
+          confirmButtonText: "确定",
+          showCancelButton: false,
+          type: "warning"
+        });
+      }
+    },
 
     // 每个函数应该做好, 并且只做一件事情
     getCityList(value) {
@@ -110,7 +118,7 @@ export default {
     // value 是选中的值，cb是回调函数，接收要展示的列表
     queryDepartSearch(value, showList) {
       // 我调用封装好的请求函数, 应该在里面能够获取到数据,
-      // 我系王拿到这个数据进行下一步 曹晓鸥 showList
+      // 拿到了这个数据进行下一步 将传回来的数据执行 showList
       this.getCityList(value).then(suggestions => {
         showList(suggestions);
       });
@@ -126,7 +134,6 @@ export default {
 
     // 出发城市下拉选择时触发
     handleDepartSelect(item) {
-      console.log(11111111);
       // 建议被选择后,会带上一个被选项 item 对象
       // 将里面的 code 存放到 表单的出发城市代码
       console.log(item);
@@ -149,7 +156,13 @@ export default {
     },
 
     // 触发和目标城市切换时触发
-    handleReverse() {},
+    handleReverse() {
+      const olddepartCity = this.form.departCity;
+      const olddestCity = this.form.destCity;
+
+      this.form.departCity = olddestCity;
+      this.form.destCity = olddepartCity;
+    },
 
     // 提交表单是触发
     handleSubmit() {
