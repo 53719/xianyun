@@ -11,10 +11,10 @@
           <el-row type="flex" justify="space-between" class="flight-info-center">
             <el-col :span="8" class="flight-airport">
               <strong>{{data.dep_time}}</strong>
-              <span>{{data.org_airport_name}} {{data.org_airport_quay}}</span>
+              <span>{{data.org_airport_name}}{{data.org_airport_quay}}</span>
             </el-col>
             <el-col :span="8" class="flight-time">
-              <span>2时20分(伪)</span>
+              <span>2时20分</span>
             </el-col>
             <el-col :span="8" class="flight-airport">
               <strong>{{data.arr_time}}</strong>
@@ -24,7 +24,7 @@
         </el-col>
         <el-col :span="6" class="flight-info-right">
           ￥
-          <span class="sell-price">{{data.base_price}}</span>起
+          <span class="sell-price">{{data.seat_infos[0].org_settle_price_child}}</span>起
         </el-col>
       </el-row>
     </div>
@@ -38,17 +38,17 @@
             justify="space-between"
             align="middle"
             class="flight-sell"
-            v-for="(item,index) in data.seat_infos"
+            v-for="(item, index) in data.seat_infos"
             :key="index"
           >
             <el-col :span="16" class="flight-sell-left">
-              <span>{{item.group_name}}</span>
+              <span>{{item.name}}</span>
               | {{item.supplierName}}
             </el-col>
             <el-col :span="5" class="price">￥{{item.org_settle_price}}</el-col>
             <el-col :span="3" class="choose-button">
               <el-button type="warning" size="mini">选定</el-button>
-              <p v-if="item.nums != 'A'">剩余：{{item.nums}}</p>
+              <p>剩余：{{item.discount}}</p>
             </el-col>
           </el-row>
         </el-col>

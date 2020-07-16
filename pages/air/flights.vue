@@ -13,7 +13,7 @@
 
         <!-- 航班信息 -->
         <div>
-          <FlightsItem />
+          <FlightsItem v-for="(item, index) in dataList" :key="index" :data="item" />
         </div>
       </div>
 
@@ -36,18 +36,25 @@ export default {
   },
   data() {
     return {
-      flightsData: {}
+      flightsData: {},
+      dataList: []
     };
   },
-  created() {
-    // 现在所有的参数都在 URL 直接发送请求
-    this.$axios({
-      url: "/airs",
-      params: this.$route.query
-    }).then(res => {
-      console.log(res.data);
-      this.flightsData = res.data;
-    });
+  methods: {
+    // 获取航班总数据
+    getData() {
+      this.$axios({
+        url: `airs`,
+        params: this.$route.query // 来自URL的5个参数
+      }).then(res => {
+        this.flightsData = res.data;
+        this.dataList = this.flightsData.flights;
+      });
+    }
+  },
+
+  mounted() {
+    this.getData();
   }
 };
 </script>
