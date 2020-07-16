@@ -34,6 +34,11 @@ export default {
     FlightsListHead,
     FlightsItem
   },
+  data() {
+    return {
+      flightsData: {}
+    };
+  },
   created() {
     // 现在所有的参数都在 URL 直接发送请求
     this.$axios({
@@ -41,6 +46,7 @@ export default {
       params: this.$route.query
     }).then(res => {
       console.log(res.data);
+      this.flightsData = res.data;
     });
   }
 };
