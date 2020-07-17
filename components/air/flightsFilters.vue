@@ -112,7 +112,14 @@ export default {
     },
 
     // 撤销条件时候触发
-    handleFiltersCancel() {}
+    handleFiltersCancel() {
+      this.airport = "";
+      this.flightTimes = "";
+      this.company = "";
+      this.airSize = "";
+
+      this.$emit("setDataList", this.data.flights);
+    }
   }
 };
 </script>
