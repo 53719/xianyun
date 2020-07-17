@@ -4,11 +4,10 @@
       <!-- 顶部过滤列表 -->
       <div class="flights-content">
         <!-- 过滤条件 -->
-        <div>
-          <!-- data 是不会被修改的列表数据 -->
-          <!-- setDataList 用于修改过滤后的数组列表 -->
-          <FlightsFilters :data="cacheFlightsData" @setDataList="setDataList" />
-        </div>
+
+        <!-- data 是不会被修改的列表数据 -->
+        <!-- setDataList 用于修改过滤后的数组列表 -->
+        <FlightsFilters :data="cacheFlightsData" @setDataList="setDataList" />
 
         <!-- 航班头部布局 -->
         <div>
