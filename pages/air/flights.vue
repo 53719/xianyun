@@ -40,7 +40,6 @@
 
       <!-- 侧边栏 -->
       <div class="aside">
-        侧边栏
         <!-- 侧边栏组件 -->
         <FlightsAside />
       </div>
@@ -78,6 +77,11 @@ export default {
       pageIndex: 1, // 当前页数
       pageSize: 5 // 显示条数
     };
+  },
+  watch: {
+    $route() {
+      this.getData();
+    }
   },
   methods: {
     // 获取航班总数据
