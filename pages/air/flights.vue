@@ -43,6 +43,7 @@
       <div class="aside">
         侧边栏
         <!-- 侧边栏组件 -->
+        <FlightsAside />
       </div>
     </el-row>
   </section>
@@ -52,11 +53,13 @@
 import FlightsListHead from "@/components/air/FlightsListHead";
 import FlightsItem from "@/components/air/FlightsItem";
 import FlightsFilters from "@/components/air/flightsFilters.vue";
+import FlightsAside from "@/components/air/flightsAside.vue";
 export default {
   components: {
     FlightsListHead,
     FlightsItem,
-    FlightsFilters
+    FlightsFilters,
+    FlightsAside
   },
   data() {
     return {
