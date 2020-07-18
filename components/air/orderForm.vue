@@ -1,5 +1,8 @@
 <template>
   <div class="main">
+    <!-- `computed`计算属性的值如果页面中没引用的话函数是不会执行的，所以需要在页面中调用下`allPrice`. -->
+    <input type="hidden" :value="allPrice" />
+
     <div class="air-column">
       <h2>乘机人</h2>
       <el-form class="member-info">
@@ -91,6 +94,27 @@ export default {
       captcha: "000000", // 验证码
       invoice: false // 发票
     };
+  },
+  computed: {
+    // 计算总价格
+    allPrice() {
+      console.log(123);
+      let price = 0;
+      let len = this.users.length;
+
+      price += this.data.seat_infos.org_settle_price * len;
+
+      this.insurances.forEach(v => {
+        price += this.data.insurances[v - 1].price * len;
+      });
+
+      price += this.data.airport_tax_audlet * len;
+
+      // 触发设置总金额事件
+      this.$emit("setAllPrice", price);
+
+      return price;
+    }
   },
   methods: {
     // 添加乘机人

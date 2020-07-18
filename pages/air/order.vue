@@ -3,27 +3,33 @@
     <el-row type="flex" justify="space-between">
       <!-- 订单表单 -->
       <div class="main">
-        <OrderForm :data="infoData" />
+        <OrderForm :data="infoData" @setAllPrice="setAllPrice" />
       </div>
 
       <!-- 侧边栏 -->
-      <div class="aside"></div>
+      <div class="aside">
+        <OrderAside :data="infoData" :allPrice="allPrice" />
+      </div>
     </el-row>
   </div>
 </template>
 
 <script>
 import OrderForm from "@/components/air/orderForm.vue";
+import OrderAside from "@/components/air/OrderAside.vue";
 export default {
   components: {
-    OrderForm
+    OrderForm,
+    OrderAside
   },
   data() {
     return {
       //机票信息
       infoData: {
-        insurances: [] // 初始化保险数据
-      }
+        insurances: [], // 初始化保险数据
+        seat_infos: {}
+      },
+      allPrice: 0
     };
   },
   mounted() {
@@ -38,6 +44,11 @@ export default {
     }).then(res => {
       this.infoData = res.data;
     });
+  },
+  methods: {
+    setAllPrice(price) {
+      this.allPrice = price;
+    }
   }
 };
 </script>
