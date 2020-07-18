@@ -45,6 +45,7 @@
           v-model="form.departDate"
           placeholder="请选择日期"
           style="width: 100%;"
+          value-format="yyyy-MM-dd"
           @change="handleDate"
         ></el-date-picker>
       </el-form-item>
@@ -172,7 +173,8 @@ export default {
       // 需要利用 momentjs 转换成合适的格式
       // value 就是时间对象
       // 原生日期对象本来没有格式化函数, 所以要转换成 moment 的对象格式
-      this.form.departDate = moment(value).format("YYYY-MM-DD");
+      // this.form.departDate = moment(value).format("YYYY-MM-DD");
+      console.log(value);
     },
 
     // 触发和目标城市切换时触发
@@ -197,26 +199,29 @@ export default {
         const airs = JSON.parse(localStorage.getItem("airs") || `[]`);
         airs.push(this.form);
         localStorage.setItem("airs", JSON.stringify(airs));
-        // 利用编程式导航跳转页面
+
+        //1. 提取参数对象
+        const query = {
+          departCity: this.form.departCity.replace(/市$/, ""),
+          departCode: this.form.departCode,
+          destCity: this.form.destCity.replace(/市$/, ""),
+          destCode: this.form.destCode,
+          departDate: this.form.departDate
+        };
+        //利用编程式导航跳转页面
         this.$router.push({
           path: "/air/flights",
-          query: {
-            departCity: this.form.departCity.replace(/市$/, ""),
-            departCode: this.form.departCode,
-            destCity: this.form.destCity.replace(/市$/, ""),
-            destCode: this.form.destCode,
-            departDate: this.form.departDate
-          }
+          query
         });
       }
     },
     getdatatime() {
       //默认显示今天
-      this.form.departDate = new Date();
+      // this.form.departDate = new Date().moment().format("YYYY-MM-DD");
     }
   },
   mounted() {
-    this.getdatatime();
+    // this.getdatatime();
   }
 };
 </script>
