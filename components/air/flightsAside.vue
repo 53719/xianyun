@@ -24,6 +24,7 @@
         :to="`/air/flights?departCity=${item.departCity}&departCode=${item.departCode}&destCity=${item.destCity}&destCode=${item.destCode}&departDate=${item.departDate}`"
         v-for="(item, index) in airsLog"
         :key="index"
+        class="xiahuaxian"
       >
         <el-row type="flex" justify="space-between" align="middle" class="history-item">
           <div class="air-info">
@@ -117,5 +118,10 @@ export default {
       cursor: pointer;
     }
   }
+}
+
+// 清除 nuxt-link 默认下划线
+.xiahuaxian {
+  text-decoration: none;
 }
 </style>
