@@ -189,9 +189,13 @@ export default {
     // 提交表单是触发
     handleSubmit() {
       console.log(this.form);
-      if (this.form.departCity == "" || this.form.destCity == "") {
+      if (
+        this.form.departCity == "" ||
+        this.form.destCity == "" ||
+        this.form.departDate == ""
+      ) {
         this.$message({
-          message: "出发城市或者到底城市不能为空",
+          message: "信息输入不完整,请填写完全部信息",
           type: "warning"
         });
       } else {
@@ -214,14 +218,7 @@ export default {
           query
         });
       }
-    },
-    getdatatime() {
-      //默认显示今天
-      // this.form.departDate = new Date().moment().format("YYYY-MM-DD");
     }
-  },
-  mounted() {
-    // this.getdatatime();
   }
 };
 </script>
